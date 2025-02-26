@@ -29,7 +29,6 @@ cd scaffinit
 ```sh
 npm install -g .
 ```
-![alt text](image.png)
 
 ## Usage
 ### Scaffold a backend project
