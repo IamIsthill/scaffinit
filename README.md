@@ -59,6 +59,16 @@ Each directory serves a specific purpose:
 - routers/ – Defines API routes.
 - models/ – Manages database schemas and models.
 
+## Uninstall
+1. To remove scaffinit, run the following command:
+```sh
+npm uninstall -g scaffinit
+```
+2. To verify that it has been removed, run:
+```sh
+npm ls -g --depth=0
+```
+
 ## Contributing guidelines
 Currently, this repository does not have a contribution guideline. However, if you wish to contribute:
 - Fork the repository.
