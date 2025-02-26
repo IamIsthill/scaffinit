@@ -34,7 +34,7 @@ npm install -g .
 ### Scaffold a backend project
 1. Navigate to your new directory
 2. Run the following command:
-```sh scaff```
+``` scaff```
 This will automatically scaffold a backend folder structure for you.
 ### Generated Structure
 After running scaff, your project will have the following structure:
