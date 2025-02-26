@@ -4,15 +4,32 @@ import arg from 'arg'
 import { getConfig } from './src/config/config-manager.js'
 import { start } from './src/commands/start.js'
 import { createLogger } from './src/logger.js'
-import { mkdirSync, writeFileSync, existsSync } from 'fs'
+import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'fs'
 
 const logger = createLogger('bin')
 
 try {
     const args = arg({
-        '--start': Boolean,
-        '--build': Boolean
+        '--init': Boolean
     })
+    if (args['--init']) {
+        createConfigFile()
+    } else {
+        createStructures()
+    }
+} catch (err) {
+    logger.warning(err.message)
+    console.log()
+    usage()
+}
+
+function usage() {
+    console.log(`${chalk.whiteBright('scaffinit [CMD]')}
+    ${chalk.greenBright('--init')}\tCreates a configuration file for the project
+        `)
+}
+
+function createStructures() {
     const basePath = process.cwd()
     const appList = ['app', 'controllers', 'middleware', 'routes', 'models']
     appList.forEach((app) => {
@@ -24,24 +41,11 @@ try {
             }
         }
     })
-
-
-
-    // logger.debug('Received args', args)
-
-    // if (args['--start']) {
-    //     const config = getConfig()
-    //     start(config)
-    // }
-} catch (err) {
-    logger.warning(err.message)
-    console.log()
-    usage()
 }
 
-function usage() {
-    console.log(`${chalk.whiteBright('tool [CMD]')}
-    ${chalk.greenBright('--start')}\tStarts the app
-    ${chalk.greenBright('--build')}\tBuilds the app
-        `)
+function createConfigFile() {
+    const userPath = process.cwd()
+    const scaffConfig = readFileSync(`./src/templates/scaff.config.js`, 'utf-8')
+    writeFileSync(`${userPath}/scaff.config.js`, scaffConfig)
+    logger.log('Created scaff.config.js')
 }
